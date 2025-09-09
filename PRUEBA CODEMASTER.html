@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Aprende Programación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables y reset */
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #9ca3af;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header y navegación */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-left: 25px;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .user-menu {
+            position: relative;
+        }
+        
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 200px;
+            padding: 10px 0;
+            z-index: 101;
+        }
+        
+        .user-dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .user-dropdown a:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            color: var(--gray);
+        }
+        
+        .user-avatar i {
+            font-size: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Sección de bienvenida */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(rgba(37, 99, 235, 0.8), rgba(59, 130, 246, 0.8)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Secciones de contenido */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .about, .services, .courses {
+            background-color: white;
+        }
+        
+        .about-content, .services-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-content img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Tarjetas de cursos */
+        .course-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .course-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .course-img:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        
+        .course-img i {
+            font-size: 80px;
+            color: white;
+            z-index: 1;
+        }
+        
+        .course-info {
+            padding: 20px;
+        }
+        
+        .course-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .modal-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .modal-form {
+            display: none;
+        }
+        
+        .modal-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        /* Perfil de usuario */
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            display: none;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            color: var(--gray);
+        }
+        
+        .profile-avatar i {
+            font-size: 40px;
+        }
+        
+        .profile-info h2 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .detail-card {
+            background-color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .detail-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #374151;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Notificaciones */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: white;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header y Navegación -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMjU2M2ViIiBkPSJNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMCA0NDhjLTExMC41IDAtMjAwLTg5LjUtMjAwLTIwMFMxNDUuNSA1NiAyNTYgNTZzMjAwIDg5LjUgMjAwIDIwMC04OS41IDIwMC0yMDAgMjAweiIvPjxwYXRoIGZpbGw9IiMzYjgyZjYiIGQ9Ik0yNzIgMTM2aC0zMmMtNC40IDAtOCAzLjYtOCA4djM1MmMwIDQuNCAzLjYgOCA4IDhoMzJjNC40IDAgOC0zLjYgOC04VjE0NGMwLTQuNC0zLjYtOC04LTh6Ii8+PHBhdGggZmlsbD0iIzEwYjk4MSIgZD0iTTM4NCA0MzJjMCA0LjQtMy42IDgtOCA4aC0zMmMtNC40IDAtOC0zLjYtOC04VjE0NGMwLTQuNCAzLjYtOCA4LThoMzJjNC40IDAgOCAzLjYgOCA4djI4OHoiLz48cGF0aCBmaWxsPSIjMWYyOTM3IiBkPSJNMzIwIDI0OGMwIDQuNC0zLjYgOC04IDhoLTExMmMtNC40IDAtOC0zLjYtOC04di0zMmMwLTQuNCAzLjYtOCA4LThoMTEyYzQuNCAwIDggMy42IDggOHYzMnoiLz48L3N2Zz4=" alt="CodeMaster Logo">
+                    CodeMaster
+                </a>
+                
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">Qué es CodeMaster</a></li>
+                    <li class="nav-item"><a href="#services" class="nav-link">Qué ofrecemos</a></li>
+                    <li class="nav-item"><a href="#courses" class="nav-link">Cursos</a></li>
+                    <li class="nav-item user-menu">
+                        <div class="user-avatar" id="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <a href="#" onclick="showProfile()">Mi Perfil</a>
+                            <a href="#" onclick="showLoginModal()">Iniciar Sesión</a>
+                            <a href="#" onclick="showRegisterModal()">Crear Cuenta</a>
+                            <a href="#">Mis Cursos</a>
+                            <a href="#">Mi Progreso</a>
+                            <a href="#" onclick="logout()">Cerrar Sesión</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Bienvenida -->
+    <section class="hero">
+        <div class="container">
+            <h1>Conviértete en un Maestro del Código</h1>
+            <p>Aprende programación con nuestros cursos especializados y comienza tu camino hacia una carrera tecnológica llena de oportunidades.</p>
+            <a href="#courses" class="btn">Explorar Cursos</a>
+            <a href="#" class="btn btn-outline" onclick="showLoginModal()">Iniciar Sesión</a>
+        </div>
+    </section>
+
+    <!-- Sección: Qué es CodeMaster -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">¿Qué es CodeMaster?</h2>
+            <div class="about-content">
+                <p>CodeMaster es una plataforma de aprendizaje en línea especializada en cursos de programación. Nuestro objetivo es hacer accesible la educación tecnológica de alta calidad para todos, sin importar su experiencia previa.</p>
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estudiantes aprendiendo programación">
+                <p>Utilizamos metodologías innovadoras que combinan teoría y práctica, con proyectos reales que te prepararán para los desafíos del mundo laboral actual.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Qué ofrecemos -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">¿Qué ofrecemos en CodeMaster?</h2>
+            <div class="services-content">
+                <p>En CodeMaster ofrecemos una experiencia de aprendizaje completa que incluye:</p>
+                <ul style="list-style-position: inside; text-align: left; max-width: 600px; margin: 20px auto;">
+                    <li>Cursos actualizados con las últimas tecnologías y tendencias</li>
+                    <li>Instructores con experiencia en la industria</li>
+                    <li>Proyectos prácticos para construir tu portafolio</li>
+                    <li>Comunidad de estudiantes y profesionales</li>
+                    <li>Soporte personalizado y seguimiento de tu progreso</li>
+                    <li>Certificación al completar cada curso</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Cursos -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2 class="section-title">Nuestros Cursos de Programación</h2>
+            <div class="course-cards">
+                <!-- Curso de Python -->
+                <div class="course-card">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1526318472351-c75fcf070305?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <div class="course-info">
+                        <h3>Python Completo</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 60 horas</span>
+                            <span><i class="fas fa-signal"></i> Principiante a Avanzado</span>
+                        </div>
+                        <p>Aprende Python desde cero hasta nivel avanzado. Domina conceptos fundamentales, estructuras de datos, POO, APIs y mucho más.</p>
+                        <p><strong>Lo que verás:</strong> Sintaxis básica, funciones, módulos, programación orientada a objetos, manejo de archivos, bases de datos, y frameworks como Django y Flask.</p>
+                        <button class="btn" style="margin-top: 15px;" onclick="checkAuth('Python Completo')">Inscribirse</button>
+                    </div>
+                </div>
+                
+                <!-- Próximos cursos (placeholder) -->
+                <div class="course-card">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <i class="fab fa-js"></i>
+                    </div>
+                    <div class="course-info">
+                        <h3>JavaScript Moderno (Próximamente)</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 50 horas</span>
+                            <span><i class="fas fa-signal"></i> Intermedio</span>
+                        </div>
+                        <p>Domina JavaScript moderno (ES6+), async/await, APIs y frameworks frontend.</p>
+                        <button class="btn" style="margin-top: 15px; background-color: #6b7280;" disabled>Próximamente</button>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1633356122544f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="course-info">
+                        <h3>React JS (Próximamente)</h3>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 45 horas</span>
+                            <span><i class="fas fa-signal"></i> Intermedio-Avanzado</span>
+                        </div>
+                        <p>Aprende React, hooks, context API, Redux y construye aplicaciones modernas.</p>
+                        <button class="btn" style="margin-top: 15px; background-color: #6b7280;" disabled>Próximamente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Login/Registro -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-tabs">
+                <div class="modal-tab active" onclick="switchTab('login')">Iniciar Sesión</div>
+                <div class="modal-tab" onclick="switchTab('register')">Registrarse</div>
+            </div>
+            
+            <form id="login-form" class="modal-form active">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" placeholder="Tu correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="Tu contraseña" required>
+                </div>
+                <button type="button" class="btn" style="width: 100%;" onclick="login()">Iniciar Sesión</button>
+            </form>
+            
+            <form id="register-form" class="modal-form">
+                <div class="form-group">
+                    <label for="reg-name">Nombre Completo</label>
+                    <input type="text" id="reg-name" placeholder="Tu nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Correo Electrónico</label>
+                    <input type="email" id="reg-email" placeholder="Tu correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" placeholder="Crea una contraseña segura" required>
+                </div>
+                <div class="form-group">
+                    <label for="avatar-upload">Foto de Perfil (opcional)</label>
+                    <input type="file" id="avatar-upload" accept="image/*" style="padding: 5px;">
+                </div>
+                <button type="button" class="btn" style="width: 100%;" onclick="register()">Crear Cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Perfil de usuario -->
+    <section id="profile-section">
+        <div class="container">
+            <div class="profile-container" id="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profile-name"></h2>
+                        <p id="profile-email"></p>
+                    </div>
+                </div>
+                
+                <div class="profile-details">
+                    <div class="detail-card">
+                        <h3>Información Personal</h3>
+                        <p><strong>Nombre:</strong> <span id="profile-fullname"></span></p>
+                        <p><strong>Email:</strong> <span id="profile-email2"></span></p>
+                        <p><strong>Miembro desde:</strong> <span id="profile-joined"></span></p>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h3>Mis Cursos</h3>
+                        <ul id="profile-courses">
+                            <li>No tienes cursos inscritos todavía</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h3>Progreso General</h3>
+                        <p><strong>Cursos completados:</strong> 0</p>
+                        <p><strong>Horas de estudio:</strong> 0</p>
+                        <p><strong>Logros:</strong> 0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CodeMaster</h3>
+                    <p>Aprende programación de manera efectiva y conviértete en un profesional demandado.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#about">Qué es CodeMaster</a></li>
+                        <li><a href="#services">Qué ofrecemos</a></li>
+                        <li><a href="#courses">Cursos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Política de Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><a href="mailto:info@codemaster.com">info@codemaster.com</a></li>
+                        <li><a href="tel:+123456789">+1 234 567 89</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; GREGORIO PATLAN ANGEL DAVID Y DOMINGUEZ PEREZ JESUS ALONSO 2025 CodeMaster. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Estado de la aplicación
+        let currentUser = null;
+        
+        // Cargar usuario desde localStorage si existe
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateUserInterface();
+            }
+        });
+        
+        // Funcionalidad del menú responsive
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+        
+        // Funcionalidad de modal
+        function showLoginModal() {
+            document.getElementById('auth-modal').style.display = 'flex';
+            switchTab('login');
+        }
+        
+        function showRegisterModal() {
+            document.getElementById('auth-modal').style.display = 'flex';
+            switchTab('register');
+        }
+        
+        function closeModal() {
+            document.getElementById('auth-modal').style.display = 'none';
+        }
+        
+        function switchTab(tabName) {
+            // Cambiar pestañas activas
+            document.querySelectorAll('.modal-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.modal-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            if (tabName === 'login') {
+                document.querySelector('.modal-tab:first-child').classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                document.querySelector('.modal-tab:last-child').classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('auth-modal')) {
+                closeModal();
+            }
+        });
+        
+        // Funcionalidad de autenticación
+        function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showNotification('Por favor completa todos los campos', 'error');
+                return;
+            }
+            
+            // Simular inicio de sesión
+            currentUser = {
+                name: 'Usuario Ejemplo',
+                email: email,
+                avatar: null, // Inicialmente no hay avatar
+                joined: new Date().toLocaleDateString(),
+                courses: []
+            };
+            
+            // Guardar en localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Actualizar interfaz
+            updateUserInterface();
+            closeModal();
+            showNotification(`¡Bienvenido de nuevo, ${currentUser.name}!`, 'success');
+        }
+        
+        function register() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const avatarInput = document.getElementById('avatar-upload');
+            
+            if (!name || !email || !password) {
+                showNotification('Por favor completa todos los campos obligatorios', 'error');
+                return;
+            }
+            
+            // Verificar si hay imagen para subir
+            let avatarUrl = null;
+            if (avatarInput.files && avatarInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarUrl = e.target.result;
+                    
+                    // Crear usuario con avatar
+                    createUser(name, email, avatarUrl);
+                };
+                reader.readAsDataURL(avatarInput.files[0]);
+            } else {
+                // Crear usuario sin avatar
+                createUser(name, email, null);
+            }
+        }
+        
+        function createUser(name, email, avatarUrl) {
+            currentUser = {
+                name: name,
+                email: email,
+                avatar: avatarUrl,
+                joined: new Date().toLocaleDateString(),
+                courses: []
+            };
+            
+            // Guardar en localStorage
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Actualizar interfaz
+            updateUserInterface();
+            closeModal();
+            showNotification(`¡Cuenta creada con éxito, ${currentUser.name}!`, 'success');
+        }
+        
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUserInterface();
+            showNotification('Has cerrado sesión correctamente', 'info');
+        }
+        
+        function showProfile() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('profile-container').style.display = 'block';
+            window.scrollTo({
+                top: document.getElementById('profile-section').offsetTop,
+                behavior: 'smooth'
+            });
+        }
+        
+        function updateUserInterface() {
+            const userAvatar = document.getElementById('user-avatar');
+            const profileContainer = document.getElementById('profile-container');
+            const profileAvatar = document.getElementById('profile-avatar');
+            
+            if (currentUser) {
+                // Usuario logueado - actualizar avatar de navegación
+                if (currentUser.avatar) {
+                    userAvatar.innerHTML = '';
+                    userAvatar.style.backgroundImage = `url(${currentUser.avatar})`;
+                    userAvatar.style.backgroundSize = 'cover';
+                    userAvatar.style.backgroundPosition = 'center';
+                } else {
+                    userAvatar.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            }
+            }
+        
+        function checkAuth(courseName) {
+            if (!currentUser) {
+                alert('Para inscribirte en este curso, primero debes iniciar sesión');
+                showLoginModal();
+                return;
+            }
+            
+            // Añadir curso al usuario
+            if (!currentUser.courses) {
+                currentUser.courses = [];
+            }
+            
+            if (!currentUser.courses.includes(courseName)) {
+                currentUser.courses.push(courseName);
+                updateUserInterface();
+            }
+            
+            alert(`Te has inscrito correctamente en el curso: ${courseName}`);
+        }
+        
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
